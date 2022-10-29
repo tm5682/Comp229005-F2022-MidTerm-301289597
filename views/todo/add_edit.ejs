@@ -1,5 +1,6 @@
 <%- include ('../partials/header') %>
 
+<!-- I use the check function to decide which form action to run - add or edit -->
 <%
 check = function(title, id) {
     if (title == "Add") {
@@ -8,7 +9,6 @@ check = function(title, id) {
     else
         return "/todo/edit/id"
 }
-
 %>
 <!-- Content for the Add_Edit page -->
 <div class="container">

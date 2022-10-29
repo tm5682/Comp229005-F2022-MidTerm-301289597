@@ -48,6 +48,8 @@ module.exports.details = (req, res, next) => {
 module.exports.displayEditPage = (req, res, next) => {
     
     // ADD YOUR CODE HERE
+    // if not error we render add_edit page and pass Edit as title and todoEdit as the to do to be edited
+
     let id = req.params.id
 
     TodoModel.findById(id, (err, todoToEdit) => {
@@ -84,8 +86,9 @@ module.exports.processEditPage = async (req, res, next) => {
     });
 
     // ADD YOUR CODE HERE
+    //we use filter to store the id which will be used as the first parameter  in findOneAndUpdate to find the ToDo to edit. 
+    //As second parameter we pass the updatedTodo to save the edited to do in the database
     const filter = { _id: req.body.id}
-    //const editToDo = await TodoModel.findById(id)
     const editToDo = await TodoModel.findOneAndUpdate(filter,updatedTodo)
     
     res.redirect('/todo/list')
@@ -98,8 +101,12 @@ module.exports.performDelete = async (req, res, next) => {
     // ADD YOUR CODE HERE
     let id = req.params.id
 
-    await TodoModel.findById(id).findOneAndRemove().save
+    console.log("I came here")
 
+    //we find the to do first using the id and then remove it
+    const deleteTodo = await TodoModel.findById(id).findOneAndRemove()
+
+    //we redirect user to to do list 
     res.redirect('/todo/list')
 
 
@@ -109,6 +116,7 @@ module.exports.performDelete = async (req, res, next) => {
 module.exports.displayAddPage = (req, res, next) => {
 
     // ADD YOUR CODE HERE 
+    // we create blank to do to pass to add_edit
     let newTodo = TodoModel({
         _id: "",
         task: "",
@@ -116,6 +124,7 @@ module.exports.displayAddPage = (req, res, next) => {
         complete: false
     });
 
+    // We load add_edit page with Add as title passed which will be later used in check function too
     res.render('todo/add_edit', { 
         title: 'Add',
         userName: req.user ? req.user.username : '',
@@ -137,6 +146,7 @@ module.exports.processAddPage = (req, res, next) => {
     });
 
     // ADD YOUR CODE HERE
+    // we use mongoose .save() to save the new to do
     newTodo.save()
     .then ( todo => {
         console.log(newTodo)

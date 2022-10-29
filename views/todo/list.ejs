@@ -8,7 +8,7 @@
         <div class="float-start">
             <!-- ------------------------ -->
             <!-- Fix the ADD button below -->
-            <!-- ------------------------ -->
+            <!-- simple url adition to hit right route -->
             <a href="/todo/add" class="btn btn-primary" role="button">
                 <i class="fas fa-plus-circle"></i> 
                 Add a new Todo
@@ -41,14 +41,15 @@
                     <td class="text-center">
                         <!-- ------------------------- -->
                         <!-- Fix the EDIT button below -->
-                        <!-- ------------------------- -->
+                    
+                        <!-- --we pass the id of the specific to do to router -->
                         <a href="/todo/edit/<%= TodoList[i]._id %>" class="btn btn-primary btn-sm">
                         <i class="fas fa-pencil-alt"></i></a>
                     </td>
                     <td class="text-center">
                         <!-- --------------------------- -->
                         <!-- Fix the DELETE button below -->
-                        <!-- --------------------------- -->
+                        <!-- -we pass the correct id to delete  -->
                         <a href="/todo/delete/<%= TodoList[i]._id %>" class="btn btn-danger btn-sm">
                         <i class="fas fa-trash-alt"></i></a>
                     </td>
