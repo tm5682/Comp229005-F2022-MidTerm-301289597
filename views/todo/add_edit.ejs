@@ -1,12 +1,22 @@
 <%- include ('../partials/header') %>
 
+<%
+check = function(title, id) {
+    if (title == "Add") {
+        return "/todo/add"
+    }
+    else
+        return "/todo/edit/id"
+}
+
+%>
 <!-- Content for the Add_Edit page -->
 <div class="container">
     <div class="row">
         <div class="offset-md-3 col-md-6">
             <h1><%= title %></h1>
 
-            <form class="form" action="/todo/add" method="POST">
+            <form class="form" onsubmit="return check(title, todo._id)"  method="POST">
                 <div class="form-group">
                     <input type="hidden"
                         name="id"

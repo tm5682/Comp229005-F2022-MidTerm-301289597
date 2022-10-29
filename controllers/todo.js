@@ -60,7 +60,7 @@ module.exports.displayEditPage = (req, res, next) => {
         {
             //show the edit view
             res.render('todo/add_edit', {
-                title: 'Edit To do', 
+                title: 'Edit', 
                 todo: todoToEdit
             })
         }
@@ -84,21 +84,24 @@ module.exports.processEditPage = async (req, res, next) => {
     });
 
     // ADD YOUR CODE HERE
-    const editToDo = await TodoModel.findById(id)
-    editToDo = updatedTodo
-    await editToDo.save()
-
-    res.render('todo/list', {
-        title: 'To-Do List', 
-        userName: req.user ? req.user.username : ''
-    })
+    const filter = { _id: req.body.id}
+    //const editToDo = await TodoModel.findById(id)
+    const editToDo = await TodoModel.findOneAndUpdate(filter,updatedTodo)
+    
+    res.redirect('/todo/list')
 
 }
 
 // Deletes a todo based on its id.
-module.exports.performDelete = (req, res, next) => {
+module.exports.performDelete = async (req, res, next) => {
 
     // ADD YOUR CODE HERE
+    let id = req.params.id
+
+    await TodoModel.findById(id).findOneAndRemove().save
+
+    res.redirect('/todo/list')
+
 
 }
 
@@ -114,7 +117,7 @@ module.exports.displayAddPage = (req, res, next) => {
     });
 
     res.render('todo/add_edit', { 
-        title: 'Add To do',
+        title: 'Add',
         userName: req.user ? req.user.username : '',
         todo: newTodo
     });        
