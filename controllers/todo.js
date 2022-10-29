@@ -101,12 +101,18 @@ module.exports.processAddPage = (req, res, next) => {
     console.log(req.body);
 
     let newTodo = TodoModel({
-        _id: req.body.id,
+        //_id: req.body.id,
         task: req.body.task,
         description: req.body.description,
         complete: req.body.complete ? true : false
     });
 
     // ADD YOUR CODE HERE
+    newTodo.save()
+    .then ( todo => {
+        console.log(newTodo)
+        res.redirect('/todo/list')
+    })
+    .catch(err => console.log(err))
     
 }
