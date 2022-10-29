@@ -48,6 +48,24 @@ module.exports.details = (req, res, next) => {
 module.exports.displayEditPage = (req, res, next) => {
     
     // ADD YOUR CODE HERE
+    let id = req.params.id
+
+    TodoModel.findById(id, (err, todoToEdit) => {
+        if(err)
+        {
+            console.log(err);
+            res.end(err);
+        }
+        else
+        {
+            //show the edit view
+            res.render('todo/add_edit', {
+                title: 'Edit To do', 
+                todo: todoToEdit
+            })
+        }
+    });
+
 
 }
 
