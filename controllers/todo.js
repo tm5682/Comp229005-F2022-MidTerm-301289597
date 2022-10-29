@@ -70,7 +70,7 @@ module.exports.displayEditPage = (req, res, next) => {
 }
 
 // Processes the data submitted from the Edit form to update a todo
-module.exports.processEditPage = (req, res, next) => {
+module.exports.processEditPage = async (req, res, next) => {
 
     let id = req.params.id
     
@@ -84,6 +84,14 @@ module.exports.processEditPage = (req, res, next) => {
     });
 
     // ADD YOUR CODE HERE
+    const editToDo = await TodoModel.findById(id)
+    editToDo = updatedTodo
+    await editToDo.save()
+
+    res.render('todo/list', {
+        title: 'To-Do List', 
+        userName: req.user ? req.user.username : ''
+    })
 
 }
 
